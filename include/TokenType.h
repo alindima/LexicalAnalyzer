@@ -1,0 +1,8 @@
+#ifndef LEXICALANALYZER_TOKENTYPE_H
+#define LEXICALANALYZER_TOKENTYPE_H
+
+enum TokenType {
+    Error, Ok
+};
+
+#endif //LEXICALANALYZER_TOKENTYPE_H
