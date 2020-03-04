@@ -1,20 +1,30 @@
-#include <iostream>
+#include <fstream>
 #include "include/Analyzer.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
-    Analyzer analyzer("C:\\Users\\alin\\CLionProjects\\LexicalAnalyzer\\input\\test.txt");
+    if(argc != 2){
+        cout<<"This program needs 1 argument: absolute path to input file\n";
+
+        return 0;
+    }
+
+    Analyzer analyzer(argv[1]);
+
+    ofstream fout("analysis.txt");
 
     Token token;
 
     while((token = analyzer.getToken()).type != Error && token.type != EndOfFile){
-        cout<<token.getTokenTypeAsString()<<" "<<token.getValue()<<"\n";
+        fout<<token.getTokenTypeAsString()<<" "<<token.getValue()<<"\n";
     }
 
     if(token.type == Error){
-        cout<<token.getValue()<<"\n";
+        fout<<token.getValue()<<"\n";
     }
+
+    fout.close();
 
     return 0;
 }
