@@ -2,7 +2,7 @@
 #define LEXICALANALYZER_TOKENTYPE_H
 
 enum TokenType {
-    Error, Ok
+    Error, Operator, Comment, Identifier, Keyword, Number, Semicolon, Space, EndOfFile, String, Comma
 };
 
 #endif //LEXICALANALYZER_TOKENTYPE_H

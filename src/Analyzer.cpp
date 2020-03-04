@@ -2,15 +2,30 @@
 
 using namespace std;
 
-Token Analyzer::getToken() {
-    string token = dfa.parseToken();
-    TokenType type;
+unordered_map<TokenType, string, hash<int>> Token::tokenTypeNames = {{Operator,"Operator"},
+                                                                     {Comment, "Comment"},
+                                                                     {Identifier, "Identifier"},
+                                                                     {Keyword, "Keyword"},
+                                                                     {Number, "Number"},
+                                                                     {Semicolon, "Semicolon"},
+                                                                     {Space, "Space"},
+                                                                     {String, "String"},
+                                                                     {Comma, "Comma"}};
 
-    if(token!="Error"){
-        type = Ok;
-    }else{
-        type = Error;
+vector<string> Token::values;
+
+Token Analyzer::getToken() {
+    auto tokenPair = dfa.parseToken();
+
+    auto token = Token(tokenPair.second, tokenPair.first);
+
+    if(isTokenTypeIgnorable(token.type)){
+        return getToken();
     }
 
-    return Token(type, token);
+    if(isKeyword(token)){
+        token.type = Keyword;
+    }
+
+    return token;
 }
