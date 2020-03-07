@@ -14,8 +14,13 @@ struct Token {
 
     Token(){}
     Token(TokenType type, string value): type(type){
-        values.push_back(value);
-        valuePos = values.size()-1;
+        if(valueToIndex.count(value)){
+           valuePos = valueToIndex[value];
+        }else{
+            values.push_back(value);
+            valuePos = values.size()-1;
+            valueToIndex[value] = valuePos;
+        }
     }
 
     string getTokenTypeAsString(){
@@ -31,6 +36,7 @@ private:
 
     static unordered_map<TokenType, string, hash<int>> tokenTypeNames;
     static vector<string> values;
+    static unordered_map<string, int> valueToIndex;
 
     friend class Analyzer;
 };

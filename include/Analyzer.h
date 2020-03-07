@@ -2,7 +2,6 @@
 #define LEXICALANALYZER_ANALYZER_H
 
 #include <utility>
-#include <unordered_set>
 #include "Token.h"
 #include "DFA.h"
 
@@ -17,6 +16,7 @@ class Analyzer {
 public:
     Analyzer(string filename):dfa(filename) {
         Token::values = vector<string>();
+        Token::valueToIndex = unordered_map<string, int>();
     }
 
     Token getToken();
@@ -24,7 +24,7 @@ public:
     bool isTokenTypeIgnorable(TokenType type){return ignorableTokens.count(type);}
 
     bool isKeyword(Token token){
-        return token.type==Identifier && keywords.count(token.getValue());
+        return token.type == Identifier && keywords.count(token.getValue());
     }
 };
 

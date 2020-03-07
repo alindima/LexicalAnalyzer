@@ -13,6 +13,7 @@ unordered_map<TokenType, string, hash<int>> Token::tokenTypeNames = {{Operator,"
                                                                      {Comma, "Comma"}};
 
 vector<string> Token::values;
+unordered_map<string, int> Token::valueToIndex;
 
 Token Analyzer::getToken() {
     auto tokenPair = dfa.parseToken();
